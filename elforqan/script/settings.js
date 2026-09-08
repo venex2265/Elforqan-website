@@ -71,9 +71,6 @@ DarkThemeBtn.addEventListener("click", () => {
     applyTheme(darkTheme)
 })
 
-document.addEventListener('DOMContentLoaded', () => {
-    applyTheme(localStorage.getItem("theme") || "auto")
-
-})
+applyTheme(localStorage.getItem("theme") || "auto")
 
 // Language
