@@ -1,0 +1,275 @@
+@media screen and (max-width: 670px) {
+    .layout main #cards {
+        grid-template-columns: repeat(1,1fr);
+    }
+    .layout.arabic-layout .compact-opening-menu.active {
+        width: 60%;
+    }
+    .layout.arabic-layout .compact-opening-menu.active .box  {
+        grid-template-columns: 1fr;
+    }
+    .layout .player .reciter-image {
+        width: 50px;
+        max-height: 50px;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller {
+        margin-bottom: -8px;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller svg{
+        width: 17px;
+        margin: 0px;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller  .prev ,.layout .player .inner .main-controll .controller .next ,.layout .player .inner .main-controll .controller .repeat ,.layout .player .inner .main-controll .controller .like{
+        margin: 0 7px;
+    }
+    .layout .player .inner .main-controll .prograss {
+        width: calc(100% - 110px);
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+    .layout .player .inner .main-controll .prograss .passed {
+        left: 0px;
+        top: 14px;
+        transform: translateY(0);
+    } 
+    .layout .player .inner .main-controll .prograss .remaining {
+        right: 0px;
+        top: 14px;
+        transform: translateY(0);
+    } 
+    .layout .player .inner .main-controll .prograss .prograss-bar input {
+        height: 4px;
+    }
+    .layout .player .inner .main-controll .controller .mob-menu {
+        margin-right: 10px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .layout .player .reciter-image {
+        width: 40px;
+        height: 40px;
+    }
+    .layout .player .inner .current-surah-player {
+        margin-bottom: 20px;
+    }
+    .layout .player .current-surah-player .reciter-image {
+        height: 42px;
+        width: 42px;
+    }
+    .layout .player .inner #current-surah .details {
+        line-height: 1.7;
+    }
+    .layout .player .inner #current-surah .surah-name {
+        font-size: 0.85em;
+    }
+    .layout .player .inner #current-surah .reciter-name {
+        font-size: 0.7em;
+    }
+    .layout .player .inner .main-controll .prograss {
+        width: calc(100% - 110px);
+        margin-bottom: 10px;
+    }
+    .layout .player .inner  {
+        padding-right: 0;
+    }
+    .layout .player .inner .main-controll {
+        align-items: flex-end;
+    }
+    
+    .layout .player .inner .main-controll .prograss .passed {
+        margin-top: 5px;
+        
+        font-size: 0.8em;
+        left: -52px;
+        top: -50%;
+        transform: translateY(50%);
+    } 
+    .layout .player .inner .main-controll .prograss .remaining {
+        margin-top: 5px;
+        font-size: 0.8em;
+        right: -52px;
+        top: -50%;
+        transform: translateY(50%);
+    } 
+    .layout .player .inner .main-controll .prograss {
+        width: calc(100% - 130px);
+        position: absolute;
+        bottom: 2px;
+        right: 70px;
+        font-size: 0.85em;
+        margin-bottom: 0;
+    }
+    .layout .player .inner .main-controll .prograss .prograss-bar input {
+        height: 4px;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller {
+        margin-bottom: 10px;
+    }
+}
+@media screen and (max-width: 540px) {
+    .layout main .content {
+        padding-top: 110px;
+    }
+    .layout main .modeify {
+        flex-direction: column;
+        
+    }
+    .layout main .modeify .filter {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        text-align: center;
+        
+    }
+    .layout main .modeify .filter > div {
+        align-items: center;
+        justify-content: center;
+        padding: 8px 20px;
+    }
+    .layout main .modeify > .search-bar {
+        width: 100%;
+        max-width: none;
+        margin-top: 2px;
+    }
+    .layout.arabic-layout main .modeify > .search-bar {
+        width: 100%;
+        max-width: none;
+        margin-top: 2px;
+    }
+    .layout main .modeify > .search-bar input {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .juz-container {
+        grid-template-columns: repeat(1,1fr);
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 470px){
+    .compact-opening-menu.active {
+        width: 100%;
+        font-size: clamp(0.9rem, 3vw, 2rem);
+    }
+    .layout.arabic-layout .compact-opening-menu.active {
+        width: 100%;
+    }
+    
+}
+@media screen and (max-width: 510px) {
+    .layout:not(.arabic-layout) aside .popup{
+        bottom: 138px;
+    }
+    .layout aside .content {
+        padding: 0 5px;
+    }
+    .layout .player .inner .main-controll .controller .prev {
+        display: none;
+    }
+    .layout.arabic-layout .player .inner .main-controll {
+        
+        align-items: flex-start;
+    }
+    .layout .player .inner .main-controll {
+        align-items: flex-end;
+    }
+    .layout.arabic-layout .player {
+        width: 100%;
+        margin: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-left: transparent;
+        border-right: transparent;
+    }
+    .layout.arabic-layout main #cards {
+        
+        grid-template-columns: repeat(1,1fr);
+        padding-bottom: 0PX;
+    }
+    .layout main #cards {
+        grid-template-columns: repeat(1,1fr);
+        padding-bottom: 400px;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller .play-pause {
+        margin: 0 8px; 
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller .next {
+        margin-left: 0px;
+    }
+}
+@media screen and (max-width: 460px) {
+    .layout:not(.arabic-layout) aside .popup{
+        bottom: 138px;
+    }
+    .layout .player .inner #current-surah .details {
+        text-wrap: nowrap;
+    }
+    .layout .player .inner .main-controll .controller .play-pause {
+        margin: 0 5px;
+    }
+    .layout .player .inner .main-controll .controller .mob-menu{
+        position: absolute;
+        background-color: color-mix(in srgb, var(--dominant-bg) 50%, transparent);
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        backdrop-filter: blur(4px);
+        top: -55px;
+        left: 0;
+    }
+    .layout .player .inner .main-controll .controller .repeat {
+        margin-left: 0;
+    }
+    .layout .player .inner .main-controll .controller .mob-menu svg {
+        color: var(--text-color);
+    }
+    .layout .player .inner #current-surah .reciter-name {
+        font-size: 0.62em;
+    }
+}
+@media screen and (max-width: 410px) {
+    .layout:not(.arabic-layout) aside .popup{
+        bottom: 138px;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller .play-pause {
+        margin-left: 0;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller .mob-menu{
+        position: absolute;
+        background-color: color-mix(in srgb, var(--dominant-bg) 50%, transparent);
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        backdrop-filter: blur(4px);
+        top: -45px;
+        left: 0;
+    }
+    .layout.arabic-layout .player .inner .main-controll .controller .mob-menu svg {
+        color: var(--text-color);
+    }
+}
+@media screen and (max-width: 410px) {
+    .layout.arabic-layout aside .popup {
+        width: 100%;
+        left: 0;
+        margin-bottom: -2px;
+        margin-left: 0;
+        transform: translateX(100%);
+        border-radius: 0;
+    }
+    .layout:not(.arabic-layout) aside .popup {
+        width: 100%;
+        right: 0;
+        bottom: 138px;
+        min-width: 0;
+        border-radius: 0;
+    }
+
+}

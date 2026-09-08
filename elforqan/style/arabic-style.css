@@ -1,0 +1,133 @@
+:root{
+    .layout.light {
+        --secondery-text-color:#858585;
+        
+    }
+    .layout.dark {
+        --secondery-text-color:#6A7279;
+    }
+}
+.layout.arabic-layout  {
+    font-family: "Noto Kufi Arabic", sans-serif;
+}
+.layout.arabic-layout main {
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    
+}
+.layout.arabic-layout  aside .content {
+    height: calc(100% - 110px);
+}
+.layout.arabic-layout  aside  .popup {
+    right: 270px;
+}
+.layout.arabic-layout  .player .inner .main-controll {
+    direction: ltr;
+}
+.layout.arabic-layout .player .inner .main-controll .controller {
+    flex-direction: row-reverse;
+
+}
+.layout.arabic-layout .player .inner .main-controll .controller .prev ,.layout.arabic-layout .player .inner .main-controll .controller .next {
+    rotate: 180deg;
+}
+.layout.arabic-layout aside .content  .icons  > li svg ,.layout.arabic-layout aside .content .settings > .card svg {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+.layout.arabic-layout .player .current-surah-player .reciter-image {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+.layout .player .inner .activity {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.layout.arabic-layout .player .inner .volume .icon ,.layout.arabic-layout .player .inner .download {
+    margin-right: 10px;
+    
+}
+.layout.arabic-layout .player .inner .volume {
+    margin-left: 20px;
+    direction: ltr;
+
+}
+.layout.arabic-layout main> .content .modeify .reciter .reciter-menu-btn .image {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+.layout.arabic-layout main> .content .modeify .reciter {
+
+    padding: 0;
+    padding-right: 5px;
+    padding-left: 20px;
+}
+.layout.arabic-layout main> .content .modeify .reciter .opening-menu .box >div .image {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+.layout.arabic-layout main> .content .modeify .reciter .opening-menu .box > div .details .reciter-arabic-name {
+    display: block;
+    
+}
+.layout.arabic-layout main> .content .modeify .reciter .opening-menu .box > div .details .reciter-name {
+    display: none;
+}
+.layout.arabic-layout main> .content .modeify .reciter .opening-menu .box > div {
+    padding-right: 5px;
+    padding-left: 10px;
+}
+.layout.arabic-layout main> .content .cards  div.surah .block1 {
+    display: none;
+}
+.layout.arabic-layout main> .content .cards  div.surah .block2 {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding:5px 0;
+}
+.layout.arabic-layout main> .content .cards  div.surah .block2 .arabic-name {
+    margin: 0;
+    margin-bottom: 10px;
+}
+.layout.arabic-layout main> .content .cards  div.surah .num {
+    margin: 0;
+    position: relative;
+    margin-right: 10px;
+    margin-left: 17px;
+    background-color: #02AC6C;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.layout.arabic-layout main> .content .cards  div.surah:hover .num ,.layout.arabic-layout main> .content .cards  div.surah.active .num{
+    background-color: #045636;
+}
+.layout.arabic-layout main> .content .cards  div.surah .num .num-value {
+    transform: rotate(-45deg);
+}
+.layout.arabic-layout main> .content .cards  div.surah .num:before {
+    display: none;
+}
+.layout.arabic-layout .juz-container .juz-name {
+    right: auto;
+    left: 20px;
+}
+main> .content .modeify .search-bar {
+    max-width: 250px;
+}
+main> .content .modeify .search-bar input {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    padding: 8px 10px;
+    padding-left: 40px;
+}

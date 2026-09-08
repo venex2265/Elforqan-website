@@ -1,0 +1,26 @@
+@media screen and (max-width: 1585px) {
+    .layout main .content .cards{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .layout.arabic-layout main .content .cards {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+@media screen and (max-width: 1330px) {
+    .layout.arabic-layout main .content .cards{
+        grid-template-columns: repeat(3,1fr);
+    }
+    
+    main> .content .cards  div.surah .block1 .surah-meaning {
+        font-size: 0.75em;
+    }
+    main> .content .cards  div.surah .block2 .surah-ayah {
+        font-size: 0.75em;
+    }
+}
+
+@media screen and (min-width: 1586px) {
+    .layout main .content .cards {
+        grid-template-columns: repeat(4, minmax(220px, 1fr));
+    }
+}

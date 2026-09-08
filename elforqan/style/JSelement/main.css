@@ -1,0 +1,71 @@
+:root{
+    --main-color:#02AC6C;
+    --secondery-color:#f8f8f8;
+    --dominant-bg:#fff;
+    --main-bg-color:#045636;
+    --secodery-text-color:#858585;
+    --text-color:#000000;
+    --juz-container-bg :#0cc57e;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --main-color:#02AC6C;
+        --secondery-color:#0D1716;
+        --dominant-bg:#091312;
+        --main-bg-color:#041711;
+        --secodery-text-color:#6A7279;
+        --text-color:#fff;
+        --juz-container-bg :#222222;
+        --logo-url : url("../../images/dark-logo.webp")
+}}
+
+.darkandblurBG {
+    filter: brightness(50%);
+}
+.active-like svg {
+    fill: var(--main-color);
+    color: transparent;
+}
+.active-section {
+    background-color: var(--dominant-bg);
+}
+.active-section svg {
+    color: var(--main-color);
+}
+.active-filter {
+    background-color: var(--main-color);
+    color: var(--text-color) ;
+}
+.juz-container {
+    position: relative;
+    display: grid ;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px ;
+    margin-bottom: 15px;
+
+    background: var(--juz-container-bg);
+    border-radius: 15px;
+    padding: 20px ;
+    grid-column: 1 / -1;
+}
+.juz-container .juz-name {
+    color: #FFF;
+    position: absolute;
+    right: 20px;
+    top: -15px;
+    width: fit-content;
+    background-color: #02AC6C;
+    padding: 0 20px;
+    border-radius: 15px;
+}
+.hidden {
+    display: none !important;
+}
+.layout.light .juz-container {
+    --juz-container-bg: #065a39;
+    background-color: var(--juz-container-bg);
+}
+.layout.dark .juz-container {
+    --juz-container-bg: #222222;
+    background-color: var(--juz-container-bg);
+}

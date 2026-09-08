@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="استمع إلى القرآن الكريم صوتياً بأصوات أشهر القراء، وابحث عن السور واحفظ تلاواتك المفضلة بسهولة.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#045636">
+    <meta property="og:title" content="الفرقان - القرآن الكريم صوتياً">
+    <meta property="og:description" content="استمع إلى القرآن الكريم بأصوات أشهر القراء وابحث عن السور بسهولة.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:image" content="images/fav.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="الفرقان - القرآن الكريم صوتياً">
+    <meta name="twitter:description" content="استمع إلى القرآن الكريم بأصوات أشهر القراء وابحث عن السور بسهولة.">
+    <meta name="twitter:image" content="images/fav.png">
+    <link rel="icon" href="images/fav.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Amiri+Quran&family=Noto+Kufi+Arabic:wght@400&display=swap"
+        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Amiri+Quran&family=Noto+Kufi+Arabic:wght@400&display=swap"
+            rel="stylesheet">
+    </noscript>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/JSelement/main.css">
+    <link rel="stylesheet" href="style/arabic-style.css">
+    <noscript>
+        <link rel="stylesheet" href="style/media/large-screen.css">
+        <link rel="stylesheet" href="style/media/meduim-screen.css">
+        <link rel="stylesheet" href="style/media/small-screen.css">
+    </noscript>
+
+    <title>الفرقان - القرآن الكريم صوتياً</title>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Elforqan",
+            "description": "استمع إلى القرآن الكريم بأصوات أشهر القراء وابحث عن السور بسهولة.",
+            "inLanguage": "ar"
+        }
+    </script>
+</head>
+
+<body>
+    <div class="layout" id="layout" dir="rtl">
+        <header role="banner">
+            <div class="logo" role="img" aria-label="شعار الفرقان"></div>
+            <div class="settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-headphones">
+                    <path
+                        d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
+                </svg>
+                <span>المقرئ</span>
+            </div>
+        </header>
+        <aside aria-label="التنقل والإعدادات">
+            <div class="content">
+                <div class="logo" role="img" aria-label="شعار الفرقان"></div>
+                <nav class="separator" aria-label="الأقسام الرئيسية">
+                    <ul class="icons" id="sections">
+                        <li class="reading" id="main-section"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-book-open-icon lucide-book-open">
+                                <path d="M12 5v16" />
+                                <path
+                                    d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+                            </svg><span data-i18n="quran">Quran</span></li>
+                        <li id="like-section" class="center"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-heart-icon lucide-heart">
+                                <path
+                                    d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                            </svg><span data-i18n="favourite">Favourite</span></li>
+                    </ul>
+                    <div class="settings">
+                        <div class="card" id="settings-card">
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="lucide lucide-settings-icon lucide-settings">
+                                    <path
+                                        d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg></div>
+                            <span data-i18n="settings">Settings</span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="popup" id="popup">
+                <div class="heading">
+                    <span id="settings-heading" data-i18n="settings">Settings</span>
+                    <div class="cancel"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg></div>
+                </div>
+                <div class="theme">
+                    <span id="theme-span" data-i18n="theme">Theme</span>
+                    <div class="box">
+                        <div class="auto active" data-i18n="auto">Auto</div>
+                        <div class="light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-sun-icon lucide-sun">
+                                <circle cx="12" cy="12" r="4" />
+                                <path d="M12 2v2" />
+                                <path d="M12 20v2" />
+                                <path d="m4.93 4.93 1.41 1.41" />
+                                <path d="m17.66 17.66 1.41 1.41" />
+                                <path d="M2 12h2" />
+                                <path d="M20 12h2" />
+                                <path d="m6.34 17.66-1.41 1.41" />
+                                <path d="m19.07 4.93-1.41 1.41" />
+                            </svg></div>
+                        <div class="dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-moon-icon lucide-moon">
+                                <path
+                                    d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+                            </svg></div>
+                    </div>
+                </div>
+                <div class="language">
+                    <span id="language-span" data-i18n="language">Language</span>
+                    <select name="" id="language-selection">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+        <main>
+            <div class="content">
+                <h1 class="seo-heading">القرآن الكريم صوتياً وتلاوات أشهر القراء</h1>
+                <div class="modeify" id="modeify">
+                    <div class="filter" id="filter">
+                        <div class="serial" id="serial">
+                            <div class="details">
+                                <div class="tag" data-i18n="surah">Surah</div>
+                            </div>
+                        </div>
+                        <div class="alphabet" id="alphabet">
+                            <div class="details">
+                                <div class="tag" data-i18n="alphabet">Alphabet</div>
+                            </div>
+                        </div>
+                        <div class="ayah" id="ayah">
+                            <div class="details">
+                                <div class="tag" data-i18n="ayah">Ayah</div>
+                            </div>
+                        </div>
+                        <div class="juz" id="juz">
+                            <div class="details">
+                                <div class="tag" data-i18n="juz">Juz</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reciter">
+                        <div class="reciter-menu-btn" id="reciter-menu">
+                            <div class="image"><img src="images/reciter/mishary_rashid_alafasy.webp"
+                                    alt="صورة القارئ مشاري راشد العفاسي" decoding="async"></div>
+                            <div class="details">
+                                <div class="reciter-name">Mishary Rashid Alafasy</div>
+                                <div class="reading-type" id="current-reading-type">Murratal</div>
+                            </div>
+                        </div>
+                        <div class="opening-menu" id="opening-menu">
+                            <div class="box" id="reciter-box">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-bar">
+                        <input id="txt" type="search" data-i18n-placeholder="search" placeholder="Search"
+                            aria-label="البحث عن سورة أو قارئ">
+                        <div class="search-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+                                <path d="m21 21-4.34-4.34" />
+                                <circle cx="11" cy="11" r="8" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="filter-mobile" id="filter-mobile">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-arrow-down-wide-narrow-icon lucide-arrow-down-wide-narrow">
+                            <path d="m3 16 4 4 4-4" />
+                            <path d="M7 20V4" />
+                            <path d="M11 4h10" />
+                            <path d="M11 8h7" />
+                            <path d="M11 12h4" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="cards" id="cards" role="list" aria-label="سور القرآن الكريم">
+                </div>
+            </div>
+            <div class="overlay"></div>
+        </main>
+        <div class="player">
+            <div class="inner">
+                <div class="current-surah-player" id="current-surah">
+                    <div class="reciter-image" id="current-reciter-image"><img
+                            src="./images/reciter/mishary_rashid_alafasy.webp" alt="صورة القارئ الحالي"
+                            decoding="async">
+                    </div>
+                    <div class="details">
+                        <div class="surah-name" id="current-surah-name">Al-Fatihah</div>
+                        <div class="reciter-name" id="current-reciter-name">Yasser Ad Dussary</div>
+                    </div>
+                </div>
+                <div class="main-controll">
+                    <div class="controller">
+                        <div class="mob-menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list">
+                                <path d="M3 5h.01" />
+                                <path d="M3 12h.01" />
+                                <path d="M3 19h.01" />
+                                <path d="M8 5h13" />
+                                <path d="M8 12h13" />
+                                <path d="M8 19h13" />
+                            </svg></div>
+                        <div class="repeat" id="repeat-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-repeat-icon lucide-repeat">
+                                <path d="m17 2 4 4-4 4" />
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
+                                <path d="m7 22-4-4 4-4" />
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3" />
+                            </svg></div>
+                        <div class="prev" id="prev-surah"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-skip-back-icon lucide-skip-back">
+                                <path
+                                    d="M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z" />
+                                <path d="M3 20V4" />
+                            </svg></div>
+                        <div class="play-pause" id="play-pause-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-play-icon lucide-play">
+                                <path
+                                    d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
+                            </svg></div>
+                        <div class="next" id="next-surah"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-skip-forward-icon lucide-skip-forward">
+                                <path d="M21 4v16" />
+                                <path
+                                    d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z" />
+                            </svg></div>
+                        <div class="like" id="like-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-heart-icon lucide-heart">
+                                <path
+                                    d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                            </svg></div>
+                    </div>
+                    <div class="prograss">
+                        <div class="passed" id="passed-time">00:00</div>
+                        <div class="remaining" id="remaining-time"></div>
+                        <div class="prograss-bar"><input type="range" id="prograss-range"></div>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="download" id="download-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-arrow-down-to-line-icon lucide-arrow-down-to-line">
+                            <path d="M12 17V3" />
+                            <path d="m6 11 6 6 6-6" />
+                            <path d="M19 21H5" />
+                        </svg>
+                    </div>
+                    <div class="volume">
+                        <div class="icon" id="volume-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-volume2-icon lucide-volume-2">
+                                <path
+                                    d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
+                                <path d="M16 9a5 5 0 0 1 0 6" />
+                                <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
+                            </svg></div>
+                        <input type="range" id="volume-range">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (() => {
+            const responsiveStyles = [
+                ["style/media/large-screen.css", "screen and (min-width: 1181px)"],
+                ["style/media/meduim-screen.css", "screen and (max-width: 1180px)"],
+                ["style/media/small-screen.css", "screen and (max-width: 670px)"]
+            ];
+
+            responsiveStyles.forEach(([href, mediaQuery]) => {
+                const query = window.matchMedia(mediaQuery);
+                let stylesheet;
+
+                const updateStylesheet = () => {
+                    if (query.matches && !stylesheet) {
+                        stylesheet = document.createElement("link");
+                        stylesheet.rel = "stylesheet";
+                        stylesheet.href = href;
+                        document.head.appendChild(stylesheet);
+                    } else if (!query.matches && stylesheet) {
+                        stylesheet.remove();
+                        stylesheet = null;
+                    }
+                };
+
+                updateStylesheet();
+                query.addEventListener("change", updateStylesheet);
+            });
+        })();
+    </script>
+    <script type="module" src="script/surah/reciter-indexing.js"></script>
+    <script type="module" src="script/surah-indexing/index.js"></script>
+    <script type="module" src="script/like/liked.js"></script>
+    <script type="module" src="script/filters/filter.js"></script>
+    <script type="module" src="script/search/search.js"></script>
+    <script type="module" src="script/surah/main.js"></script>
+    <script type="module" src="script/settings.js"></script>
+    <script type="module" src="script/language.js"></script>
+</body>
+
+</html>
