@@ -58,7 +58,9 @@ const translations = {
 const languageSelect = document.getElementById("language-selection")
 const supportedLanguages = ["ar", "en", "es"];
 const storedLanguage = localStorage.getItem("language");
-const savedLanguage = supportedLanguages.includes(storedLanguage) ? storedLanguage : "ar";
+const savedLanguage = supportedLanguages.includes(storedLanguage)
+    ? storedLanguage
+    : "en";
 languageSelect.value = savedLanguage
 const seoTranslations = {
     ar: {
