@@ -807,28 +807,33 @@ function getPlainArabicName(name) {
 
 if (surahContainer) {
     function addElements() {
-        for (let i = 1; i <= (Object.keys(surahData).length); i++) {
-            let surah = document.createElement("div")
-            surah.setAttribute("role", "listitem")
-            const surahJuz = Array.isArray(surahData[i].juz) ? surahData[i].juz : [surahData[i].juz];
-            surah.innerHTML = `
-            <div class="surah" id="surah${i}" data-ayah="${surahData[i].ayahCount}" data-juz="${surahJuz.join(",")}">
-                <div class="num" id="surah-number"><span class="num-value">${i}</span></div>
+        const surahCount = Object.keys(surahData).length;
+        const language = document.documentElement.lang || "ar";
+        const versesLabel = language === "ar" ? "آيات" : language === "es" ? "Versículos" : "Verses";
+        const cards = [];
+
+        for (let i = 1; i <= surahCount; i++) {
+            const data = surahData[i];
+            const surahJuz = Array.isArray(data.juz) ? data.juz : [data.juz];
+            const arabicName = language === "ar" ? getPlainArabicName(data.surahArabicName) : data.surahArabicName;
+            cards.push(`
+            <div class="surah" id="surah${i}" role="listitem" data-ayah="${data.ayahCount}" data-juz="${surahJuz.join(",")}">
+                <div class="num"><span class="num-value">${i}</span></div>
                 <div class="details">
                     <div class="block1">
-                        <div class="surah-name" id="surah-name">${surahData[i].surahName}</div>
-                        <div class="surah-meaning" id="surah-meaning">${surahData[i].surahMeaning}</div>
+                        <div class="surah-name">${data.surahName}</div>
+                        <div class="surah-meaning">${data.surahMeaning}</div>
                     </div>
                     <div class="block2">
-                        <div class="arabic-name" id="arabic-name">${surahData[i].surahArabicName}</div>
-                        <div class="surah-ayah"><span class="ayah-count">${surahData[i].ayahCount}</span> <span data-i18n="verses">Verses</span></div>
+                        <div class="arabic-name">${arabicName}</div>
+                        <div class="surah-ayah"><span class="ayah-count">${data.ayahCount}</span> <span data-i18n="verses">${versesLabel}</span></div>
                     </div>
-                    
                 </div>
                 <div class="like" role="button" tabindex="0" aria-label="إضافة السورة إلى المفضلة"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-icon lucide-heart" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></div>
-            </div>`
-            surahContainer.appendChild(surah)
+            </div>`);
         }
+
+        surahContainer.innerHTML = cards.join("");
         document.dispatchEvent(new CustomEvent("surahsRendered"));
     }
     addElements()
