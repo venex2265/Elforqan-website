@@ -2,7 +2,46 @@ let defaultReciter = "https://server8.mp3quran.net/afs/";
 let currentReciter = defaultReciter;
 let currentSurah;
 let playeingAudio = new Audio();
+playeingAudio.preload = "none";
 let overlay = document.querySelector(".overlay")
+
+const appStorageKeys = {
+    reciter: 'elforqan:selected-reciter',
+    surah: 'elforqan:selected-surah'
+};
+
+// حط الدالة دي فوق مع باقي الـ helper functions
+function toEnglishDigits(str) {
+    return String(str)
+        .replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+        .replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+}
+function restoreAppState() {
+    try {
+        const savedReciter = localStorage.getItem(appStorageKeys.reciter);
+        if (savedReciter) {
+            currentReciter = savedReciter;
+        }
+
+        const savedSurah = localStorage.getItem(appStorageKeys.surah);
+        if (savedSurah) {
+            currentSurah = toEnglishDigits(savedSurah).trim().padStart(3, "0");
+        }
+    } catch (error) {
+        console.warn("App state restore failed:", error);
+    }
+}
+
+function saveAppState() {
+    try {
+        localStorage.setItem(appStorageKeys.reciter, currentReciter || defaultReciter);
+        localStorage.setItem(appStorageKeys.surah, currentSurah || "");
+    } catch (error) {
+        console.warn("App state save failed:", error);
+    }
+}
+
+restoreAppState();
 
 let playPauseBtn = document.getElementById("play-pause-btn")
 
@@ -96,14 +135,14 @@ function updateDeatails() {
         reciterMenuBtn.querySelector(".image img").src = reciterImgSrc;
         let currentReadingType = document.getElementById("current-reading-type")
         currentReadingType.textContent = "مرتل"
-        let readingtype = document.querySelectorAll("#reciter-reading-type")
+        let readingtype = document.querySelectorAll(".reciter-reading-type")
         readingtype.forEach((e) => {
             e.textContent = "مرتل"
         })
     } else {
         let currentReadingType = document.getElementById("current-reading-type")
         currentReadingType.textContent = "Murattal"
-        let readingtype = document.querySelectorAll("#reciter-reading-type")
+        let readingtype = document.querySelectorAll(".reciter-reading-type")
         readingtype.forEach((e) => {
             e.textContent = "Murattal"
         })
@@ -120,6 +159,7 @@ document.addEventListener("click", (event) => {
     if (card) {
         getReciterCards().forEach((c) => c.classList.toggle("active", c === card));
         currentReciter = card.dataset.server || defaultReciter;
+        saveAppState();
         closeOpeningMenu();
         if (currentSurah) {
             playeingAudio.src = generateUrl();
@@ -170,30 +210,42 @@ function syncControllerLikeButton() {
 }
 
 // Surah click, delegated so dynamically cloned cards work too
-const cardsContainer = document.getElementById("cards");
-cardsContainer.addEventListener("click", (event) => {
-    const surahElement = event.target.closest(".surah");
-    if (!surahElement || !cardsContainer.contains(surahElement)) return;
 
-    document.querySelectorAll("#cards .surah").forEach((surah) => {
-        surah.classList.remove("active");
-    });
-    surahElement.classList.add("active");
 
-    const numberText = surahElement.querySelector(".number")?.textContent || surahElement.id.replace("surah", "");
-
-    currentSurah = String(numberText).trim().padStart(3, "0");
-    syncControllerLikeButton();
-    playeingAudio.src = generateUrl();
-    playPauseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pause-icon lucide-pause"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>`;
-    playPauseBtn.classList.add("played");
-    playCurrentAudio();
-    updateDeatails();
-});
 
 function generateUrl() {
     return `${currentReciter}${currentSurah}.mp3`;
 }
+const cardsContainer = document.getElementById("cards");
+cardsContainer.addEventListener("click", (event) => {
+    const surahElement = event.target.closest(".surah");
+    if (!surahElement || !cardsContainer.contains(surahElement)) return;
+    let mainSection = document.querySelector("main")
+    mainSection.classList.remove("section-active")
+    let asideSection = document.querySelector("aside > .content")
+    asideSection.classList.remove("section-active")
+    let player = document.querySelector(".player")
+    player.classList.add("active");
+
+    let popup = document.querySelector("aside .popup")
+    popup.style.bottom = "140px"
+
+    document.querySelectorAll("#cards .surah.active").forEach((surah) => {
+        surah.classList.remove("active");
+    });
+    surahElement.classList.add("active");
+
+    const surahId = surahElement.id || surahElement.dataset.surahId || "1";
+    const numberText = surahElement.querySelector(".num-value")?.textContent || surahId.replace("surah", "");
+    currentSurah = toEnglishDigits(numberText).trim().padStart(3, "0");
+    saveAppState();
+    syncControllerLikeButton();
+    playeingAudio.src = generateUrl();
+    playPauseBtn.innerHTML = pauseIcon;
+    playPauseBtn.classList.add("played");
+    playCurrentAudio();
+    updateDeatails();
+});
 
 function playCurrentAudio() {
     playeingAudio.play().catch((error) => {
@@ -348,9 +400,9 @@ function getPlaybackSurahIds() {
     const likedIds = new Set(getStoredLikedSurahs());
     const visibleSurahs = Array.from(cardsContainer.querySelectorAll(".surah"))
         .filter((surah) => {
-            const isClone = surah.closest(".juz-clone");
-            const isVisible = getComputedStyle(surah).display !== "none"
-                && getComputedStyle(surah.parentElement).display !== "none";
+            const isClone = surah.classList.contains("juz-clone");
+            const isVisible = !surah.classList.contains("hidden")
+                && !surah.closest(".juz-container.hidden");
             return !isClone && isVisible && likedIds.has(surah.id);
         });
 
@@ -376,9 +428,10 @@ function playSurah(surahNumber) {
     updateDeatails();
     syncControllerLikeButton();
 
-    document.querySelectorAll("#cards .surah").forEach((surah) => {
-        surah.classList.toggle("active", surah.id === `surah${Number(currentSurah)}`);
+    document.querySelectorAll("#cards .surah.active").forEach((surah) => {
+        surah.classList.remove("active");
     });
+    document.getElementById(`surah${Number(currentSurah)}`)?.classList.add("active");
 }
 
 prevSurah.addEventListener("click", () => {
