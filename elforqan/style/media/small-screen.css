@@ -107,8 +107,11 @@
     }
 }
 @media screen and (max-width: 540px) {
+    .layout main.section-active .content.active, .layout.arabic-layout main.section-active .content.active {
+        padding-top: 180px;
+    }
     .layout main .content {
-        padding-top: 110px;
+        padding-top: 90px;
     }
     .layout main .modeify {
         flex-direction: column;
@@ -129,12 +132,12 @@
     .layout main .modeify > .search-bar {
         width: 100%;
         max-width: none;
-        margin-top: 2px;
+        margin-top: 8px;
     }
     .layout.arabic-layout main .modeify > .search-bar {
         width: 100%;
         max-width: none;
-        margin-top: 2px;
+        margin-top: 8px;
     }
     .layout main .modeify > .search-bar input {
         padding-top: 5px;
@@ -187,7 +190,11 @@
     }
     .layout main #cards {
         grid-template-columns: repeat(1,1fr);
-        padding-bottom: 400px;
+    }
+    
+    .layout main .content ,
+    .layout.arabic-layout main .content {
+        padding-bottom: 130px;
     }
     .layout.arabic-layout .player .inner .main-controll .controller .play-pause {
         margin: 0 8px; 
