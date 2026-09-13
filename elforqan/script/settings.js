@@ -41,6 +41,10 @@ document.addEventListener("keydown", (event) => {
 const lightTheme = "light";
 const darkTheme = "dark";
 
+function getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? darkTheme : lightTheme;
+}
+
 function applyTheme(selectedTheme) {
     const theme = ["auto", lightTheme, darkTheme].includes(selectedTheme)
         ? selectedTheme
@@ -51,9 +55,14 @@ function applyTheme(selectedTheme) {
         button.classList.remove("active")
     })
 
-    if (theme !== "auto") {
-        layout.classList.add(theme)
-    }
+    const activeTheme = theme === "auto" ? getSystemTheme() : theme;
+    layout.classList.add(activeTheme)
+
+    const html = document.documentElement;
+    html.classList.remove("theme-dark", "theme-light");
+    html.classList.add(activeTheme === "dark" ? "theme-dark" : "theme-light");
+    html.dataset.theme = activeTheme;
+    html.dataset.themeMode = theme;
 
     let activeButton = popupMenu.querySelector(`.theme .${theme}`)
     activeButton?.classList.add("active")
@@ -72,5 +81,11 @@ DarkThemeBtn.addEventListener("click", () => {
 })
 
 applyTheme(localStorage.getItem("theme") || "auto")
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if ((localStorage.getItem("theme") || "auto") === "auto") {
+        applyTheme("auto")
+    }
+})
 
 // Language
