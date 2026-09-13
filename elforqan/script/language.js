@@ -26,7 +26,7 @@ const translations = {
         theme: "المظهر",
         language: "اللغة",
         search: "بحث",
-        reciter: "المقرئ",
+        reciter: "القارئ",
         searchReciter: "ابحث عن القارئ",
         surah: "السورة",
         alphabet: "أبجدي",
@@ -63,7 +63,7 @@ const supportedLanguages = ["ar", "en", "es"];
 const storedLanguage = localStorage.getItem("language");
 const savedLanguage = supportedLanguages.includes(storedLanguage)
     ? storedLanguage
-    : "en";
+    : "ar";
 languageSelect.value = savedLanguage
 const seoTranslations = {
     ar: {
@@ -126,11 +126,15 @@ function applyLanguage(language) {
     updateSeoMetadata(language);
 
     const layout = document.getElementById("layout");
+    const html = document.documentElement;
     const isArabic = language === "ar";
 
     layout.dir = isArabic ? "rtl" : "ltr";
     layout.classList.toggle("arabic-layout", isArabic);
-    document.documentElement.lang = language;
+    html.dir = layout.dir;
+    html.lang = language;
+    html.classList.toggle("arabic-layout", isArabic);
+    html.classList.add("i18n-ready");
     document.dispatchEvent(new CustomEvent("languageChanged", { detail: { language } }));
 
 }
