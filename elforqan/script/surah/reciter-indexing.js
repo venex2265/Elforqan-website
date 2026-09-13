@@ -116,7 +116,7 @@ recitersContainer.innerHTML = reciterData.reciters.map((reciter, i) => `
         <div class="details">
             <div class="reciter-name">${reciter.name}</div>
             <div class="reciter-arabic-name">${reciter.arabic_name}</div>
-            <div class="reading-type" id="reciter-reading-type" >Murratal</div>
+            <div class="reading-type reciter-reading-type">Murratal</div>
         </div>
     </div>
 `).join("")
