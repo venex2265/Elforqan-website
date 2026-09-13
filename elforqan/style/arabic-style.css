@@ -10,6 +10,9 @@
 .layout.arabic-layout  {
     font-family: "Noto Kufi Arabic", sans-serif;
 }
+html.arabic-layout {
+    font-family: "Noto Kufi Arabic", sans-serif;
+}
 .layout.arabic-layout main {
     margin: 0;
     margin-top: 10px;
