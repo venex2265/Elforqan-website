@@ -2,15 +2,16 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    -webkit-tap-highlight-color: transparent;
 }
-:root{
+:root,
+html.theme-light {
+    color-scheme: light;
     --main-color:#02AC6C;
     --secondery-color:#f8f8f8;
     --dominant-bg:#fff;
     --main-bg-color:#045636;
     --logo-url: url("../images/dark-logo.webp");
-    
-    
     --secodery-text-color:#858585;
     --text-color:#000000;
     --surah-text-color:#fff;
@@ -19,25 +20,27 @@
     --aside-ico-color:#fff;
     --reversed-ico-color:var(--main-color);
     --slide-color:#e4e4e4;
-    
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --main-color:#02AC6C;
-        --secondery-color:#0D1716;
-        --dominant-bg:#091312;
-        --surah-text-color:#fff;
-        --main-bg-color:#041711;
-        --aside-color :#032C1E;
-        --secodery-text-color:#6A7279;
-        --text-color:#fff;
-        --border-color:#0067402f;
-        --slide-color:#0A251D;
-
-        --aside-ico-color:var(--main-color);
-        --reversed-ico-color:#fff;
-        --logo-url : url("../images/dark-logo.webp")
-    }}
+html.theme-dark {
+    color-scheme: dark;
+    --main-color:#02AC6C;
+    --secondery-color:#0D1716;
+    --dominant-bg:#091312;
+    --surah-text-color:#fff;
+    --main-bg-color:#041711;
+    --aside-color :#032C1E;
+    --secodery-text-color:#6A7279;
+    --text-color:#fff;
+    --border-color:#0067402f;
+    --slide-color:#0A251D;
+    --aside-ico-color:var(--main-color);
+    --reversed-ico-color:#fff;
+    --logo-url : url("../images/dark-logo.webp");
+}
+html:not(.i18n-ready) [data-i18n],
+html:not(.i18n-ready) [data-i18n-placeholder] {
+    visibility: hidden;
+}
 
     .overlay {
         position: fixed;
@@ -68,7 +71,6 @@
         grid-template-areas:
         "aside main "
         "aside main ";
-        transition: 0.3s ease;
     }
     .layout.dark {
         --main-bg-color:#041711;
@@ -120,7 +122,6 @@
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    transition: 0.5s;
     z-index: 1;
     box-shadow: 0 0 10px 1px #00000028 inset;
     height: calc(100vh - 110px);
@@ -143,7 +144,7 @@ aside .content {
     width: 240px;
     margin-top: 10px;
     padding: 0 15px;
-    height: calc(100% - 87px); 
+    height: calc(100% - 110px); 
     position: absolute;
     left: 0;
     overflow-y: auto;
@@ -153,7 +154,9 @@ aside .content {
     justify-content: flex-start;
     align-items: center;
     z-index: 20;
+
 }
+
 aside .content .separator {
     width: 100%;
     height: 100%;
@@ -239,7 +242,7 @@ aside  .popup {
     background-color: var(--dominant-bg);
     border: 1px solid var(--border-color);
     right:-350px;
-    bottom: 95px;
+    bottom:25px;
     min-width: 340px;
     padding: 15px;
     border-radius: 15px;
@@ -362,6 +365,10 @@ main > .content {
     overflow-y: scroll;
     padding-top: 50px;
     padding-bottom: 20px;
+}
+.section-active {
+    height: calc(100% - 30px) !important;
+    transition: 0.5s;
 
 }
 .seo-heading {
@@ -374,6 +381,9 @@ main > .content {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+main> .content.active{
+    height: calc(100vh - 30px);
 }
 main> .content::-webkit-scrollbar {
     display: none;
@@ -468,12 +478,11 @@ main> .content .modeify .reciter .reciter-menu-btn .details .reciter-arabic-name
 main> .content .modeify .reciter .opening-menu {
     position: absolute;
     top: calc(100% + 12px);
-    left: 50%;
+    left: 150%;
     width: max-content;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translate(-50%,40px);
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
     z-index: 10000;
     overflow-y: auto;
@@ -578,6 +587,8 @@ main> .content .cards {
     margin-top: 40px;
 }
 main> .content .cards  div.surah {
+    width: 100%;
+    min-width: 0;
     background-color: var(--secondery-color);
     padding: 0px 15px;
     border-radius: 15px;
@@ -691,6 +702,15 @@ main> .content .cards  div.surah:hover .surah-ayah ,main> .content .cards  div.s
     display: flex;
     justify-content: center;
     border-top: 1px solid var(--border-color);
+    visibility: hidden;
+    transform: translateY(90px);
+    transition: 0.5s;
+}
+
+.player.active {
+    visibility: visible;
+    transform: translateY(0);
+
 }
 .player .inner {
     width: 100%;
@@ -916,4 +936,11 @@ main> .content .cards  div.surah:hover .surah-ayah ,main> .content .cards  div.s
     transform: translateY(50%);
     right: -57px;
     color: var(--secodery-text-color);
+}
+
+@media screen and (max-width: 1180px) {
+    .layout {
+        display: flex;
+        width: 100%;
+    }
 }
