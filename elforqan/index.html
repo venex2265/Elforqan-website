@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (() => {
+            const html = document.documentElement;
+            try {
+                const supportedLanguages = ["ar", "en", "es"];
+                const storedLanguage = localStorage.getItem("language");
+                const language = supportedLanguages.includes(storedLanguage) ? storedLanguage : "ar";
+                const storedTheme = localStorage.getItem("theme") || "auto";
+                const resolvedTheme = storedTheme === "light" || storedTheme === "dark"
+                    ? storedTheme
+                    : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+                html.lang = language;
+                html.dir = language === "ar" ? "rtl" : "ltr";
+                html.dataset.theme = resolvedTheme;
+                html.dataset.themeMode = storedTheme === "light" || storedTheme === "dark" ? storedTheme : "auto";
+                html.classList.remove("theme-dark", "theme-light", "arabic-layout");
+                html.classList.add(resolvedTheme === "dark" ? "theme-dark" : "theme-light");
+                html.classList.toggle("arabic-layout", language === "ar");
+            } catch (error) {
+                html.lang = "ar";
+                html.dir = "rtl";
+                html.classList.add("theme-light", "arabic-layout");
+            }
+        })();
+    </script>
     <meta name="description"
         content="استمع إلى القرآن الكريم صوتياً بأصوات أشهر القراء، وابحث عن السور واحفظ تلاواتك المفضلة بسهولة.">
     <meta name="robots" content="index, follow">
@@ -28,14 +54,12 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Amiri+Quran&family=Noto+Kufi+Arabic:wght@400&display=swap"
             rel="stylesheet">
     </noscript>
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/JSelement/main.css">
-    <link rel="stylesheet" href="style/arabic-style.css">
-    <noscript>
-        <link rel="stylesheet" href="style/media/large-screen.css">
-        <link rel="stylesheet" href="style/media/meduim-screen.css">
-        <link rel="stylesheet" href="style/media/small-screen.css">
-    </noscript>
+    <link rel="stylesheet" href="style/style.css?v=20260913">
+    <link rel="stylesheet" href="style/JSelement/main.css?v=20260913">
+    <link rel="stylesheet" href="style/arabic-style.css?v=20260913">
+    <link rel="stylesheet" href="style/media/large-screen.css?v=20260913" media="screen and (min-width: 1181px)">
+    <link rel="stylesheet" href="style/media/meduim-screen.css?v=20260913" media="screen and (max-width: 1180px)">
+    <link rel="stylesheet" href="style/media/small-screen.css?v=20260913" media="screen and (max-width: 670px)">
 
     <title>الفرقان - القرآن الكريم صوتياً</title>
 
@@ -48,11 +72,21 @@
             "inLanguage": "ar"
         }
     </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
-    <div class="layout" id="layout" dir="ltr">
+    <div class="layout" id="layout">
+        <script>
+            (() => {
+                const html = document.documentElement;
+                const layout = document.getElementById("layout");
+                if (!layout) return;
+                layout.classList.remove("light", "dark", "arabic-layout");
+                layout.classList.add(html.classList.contains("theme-dark") ? "dark" : "light");
+                layout.classList.toggle("arabic-layout", html.classList.contains("arabic-layout"));
+                layout.dir = html.dir;
+            })();
+        </script>
         <header role="banner">
             <div class="logo" role="img" aria-label="شعار الفرقان"></div>
             <div class="settings">
@@ -65,8 +99,8 @@
                 <span data-i18n="reciter">Reciter</span>
             </div>
         </header>
-        <aside aria-label="التنقل والإعدادات">
-            <div class="content">
+        <aside aria-label="التنقل والإعدادات" >
+            <div class="content section-active">
                 <div class="logo" role="img" aria-label="شعار الفرقان"></div>
                 <nav class="separator" aria-label="الأقسام الرئيسية">
                     <ul class="icons" id="sections">
@@ -148,8 +182,8 @@
                 </div>
             </div>
         </aside>
-        <main>
-            <div class="content">
+        <main class="section-active">
+            <div class="content active">
                 <h1 class="seo-heading">Quran audio and recitations by renowned reciters</h1>
                 <div class="modeify" id="modeify">
                     <div class="filter" id="filter">
@@ -314,43 +348,14 @@
             </div>
         </div>
     </div>
-    <script>
-        (() => {
-            const responsiveStyles = [
-                ["style/media/large-screen.css", "screen and (min-width: 1181px)"],
-                ["style/media/meduim-screen.css", "screen and (max-width: 1180px)"],
-                ["style/media/small-screen.css", "screen and (max-width: 670px)"]
-            ];
-
-            responsiveStyles.forEach(([href, mediaQuery]) => {
-                const query = window.matchMedia(mediaQuery);
-                let stylesheet;
-
-                const updateStylesheet = () => {
-                    if (query.matches && !stylesheet) {
-                        stylesheet = document.createElement("link");
-                        stylesheet.rel = "stylesheet";
-                        stylesheet.href = href;
-                        document.head.appendChild(stylesheet);
-                    } else if (!query.matches && stylesheet) {
-                        stylesheet.remove();
-                        stylesheet = null;
-                    }
-                };
-
-                updateStylesheet();
-                query.addEventListener("change", updateStylesheet);
-            });
-        })();
-    </script>
-    <script type="module" src="script/surah/reciter-indexing.js"></script>
-    <script type="module" src="script/surah-indexing/index.js"></script>
-    <script type="module" src="script/like/liked.js"></script>
-    <script type="module" src="script/filters/filter.js"></script>
-    <script type="module" src="script/search/search.js"></script>
-    <script type="module" src="script/surah/main.js"></script>
-    <script type="module" src="script/settings.js"></script>
-    <script type="module" src="script/language.js"></script>
+    <script type="module" src="script/surah/reciter-indexing.js?v=20260913"></script>
+    <script type="module" src="script/surah-indexing/index.js?v=20260913"></script>
+    <script type="module" src="script/like/liked.js?v=20260913"></script>
+    <script type="module" src="script/filters/filter.js?v=20260913"></script>
+    <script type="module" src="script/search/search.js?v=20260913"></script>
+    <script type="module" src="script/surah/main.js?v=20260913"></script>
+    <script type="module" src="script/settings.js?v=20260913"></script>
+    <script type="module" src="script/language.js?v=20260913"></script>
 </body>
 
 </html>
