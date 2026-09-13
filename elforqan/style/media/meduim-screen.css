@@ -1,26 +1,33 @@
 @media screen and (max-width: 1180px){
-    .layout main {
-        margin: 0;
+    .layout::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .layout main.section-active, .layout.arabic-layout main.section-active {
+        margin-top: 0;
+        padding-top: 0;
     }
     .layout aside {
         position: relative;
         height: 70px;
-        background-color: #fff;
+        background-color: transparent;
     }
     .layout.arabic-layout aside {
         position: relative;
         height: 70px;
-        background-color: #fff;
+        background-color: transparent;
     }
     .layout,
     .layout.arabic-layout  {
         display: flex;
         width: 100%;
     }
+    
+    
     .layout aside .popup,
     .layout.arabic-layout aside .popup {
-        bottom: 140px;
-        right: 60%;
+        bottom: 70px;
+        right: 65%;
     }
     .layout main ,
     .layout.arabic-layout main {
@@ -39,9 +46,12 @@
         padding-top: 0px;
         
     }
-    .layout main .content {
-        padding-bottom: 50px;
+    .layout main.section-active .content.active ,
+    .layout.arabic-layout main.section-active .content.active {
+        padding-top:130px ;
+        padding-bottom: 60px;
     }
+    .layout main .content ,
     .layout.arabic-layout main .content {
         padding-bottom: 130px;
     }
@@ -76,24 +86,26 @@
         left: 0;
         margin: 0;
         z-index: 10004;
-        background-color: #fff;
+        background-color: transparent;
     }
+    
     .layout aside .content,
     .layout.arabic-layout aside .content {
         border-top-right-radius: 15px;
         border-top-left-radius: 15px;
         width: 100%;
-        height: 100%;
+        height: 100% !important;
         margin: 0;
         padding: 0 24px;
         position: relative;
         left: auto;
         border-radius: 0;
         flex-direction: row;
+        overflow: hidden;
     }
     
     .layout aside .logo {
-        background-color: #fff;
+        background-color: transparent;
         display: none;
     }
     .layout aside .separator {
@@ -146,7 +158,7 @@
         padding-top: 5px;
     }
     .layout main {
-        margin: 0px 0px 96px;
+        margin: 0px 0px 50px;
         height: calc(100vh - 106px);
     }
     main > .content .modeify {
@@ -180,7 +192,7 @@
         
         height: 60px;
         width: 100px;
-        background-image: url("../../images/mobile-light-logo.webp");
+        background-image: url("../../images/mobile-dark-logo.png");
         background-size: contain;
         background-repeat: no-repeat;
         scale: 2.5;
@@ -251,6 +263,7 @@
     main > .content .reciter {
         visibility: hidden;
     }
+    
     .compact-opening-menu.active {
         position: fixed;
         top: 60px;
@@ -370,6 +383,7 @@
     }
     .layout:not(.arabic-layout) aside .popup {
         right: 3%;
+        
     }
 }
 @media (prefers-color-scheme: dark){
@@ -380,7 +394,8 @@
 }
 @media (prefers-color-scheme: light){
     header .logo {
-        background-image: url("../../images/mobile-light-logo.png");
+        background-image: url("../../images/mobile-light-logo.webp");
+        
     }
     
 }
@@ -414,10 +429,10 @@
 }
 @media screen and (max-width: 870px) {
     .layout.arabic-layout aside .popup {
-        bottom: 140px;
         right: 100%;
         transform: translateX(101%);
         margin-left: 200px;
+
     }
     .layout:not(.arabic-layout) aside .popup {
         right: 3%;
