@@ -21,11 +21,21 @@ document.addEventListener("likedChanged", (event) => {
   }
 });
 
-// Global variable to help with clear
-// Removing old Juz container from the rest filters
+function setCardHidden(node, isHidden) {
+  node?.classList.toggle("hidden", isHidden);
+}
+
+function appendInOrder(nodes) {
+  const fragment = document.createDocumentFragment();
+  nodes.forEach((node) => {
+    setCardHidden(node, false);
+    fragment.appendChild(node);
+  });
+  container.appendChild(fragment);
+}
+
 function removeOldJuz() {
   let oldContainers = document.querySelectorAll(".juz-container");
-  // Restore original cards and remove temporary Juz-only elements.
   oldContainers.forEach((old) => {
     Array.from(old.children).forEach((child) => {
       if (child.classList.contains("juz-name") || child.classList.contains("juz-clone")) {
@@ -34,38 +44,26 @@ function removeOldJuz() {
         container.appendChild(child);
       }
     });
-    old.remove(); // Delete the juz containers  
+    old.remove();
   });
 }
 
-// Active class 
 function putActiveClass(section) {
-  // Remove active class from every section
-  allSection.forEach((section) => {
-    section.classList.remove("active-filter");
+  allSection.forEach((item) => {
+    item.classList.remove("active-filter");
   });
-  // Add active class to the selected section
   section.classList.add("active-filter");
 }
 
-// Get the liked collection (FROM LOCAL STORAGE)
 function getLikedCollection() {
-  // Make sure liked surah already exist to prevent errors !!
   if (!likedSurah || !likedSurah.liked) return [];
-  let likedCollection = [];
+  const likedIds = new Set(likedSurah.liked);
 
-  // Hide all container content ( SURAHS )
-  surahContainer.forEach((element) => {
-    element.parentElement.style.display = "none";
+  return surahContainer.filter((element) => {
+    const isLiked = likedIds.has(element.id);
+    setCardHidden(element, !isLiked);
+    return isLiked;
   });
-  // Add liked Surah from the (LOCAL STORAGE) to the array
-  likedSurah.liked.forEach((e) => {
-    let surah = container.querySelector(`#${e}`);
-    if (surah) {
-      likedCollection.push(surah.parentElement);
-    }
-  });
-  return likedCollection;
 }
 
 function getSurahNode(node) {
@@ -73,11 +71,8 @@ function getSurahNode(node) {
   return node.matches && node.matches(".surah") ? node : node.querySelector(".surah");
 }
 
-// ------------- THE ALPHABETIC FILTER ------------- //
-
 const alphabeticBtn = document.getElementById("alphabet");
 
-// Sorting the parameter (ANY COLLECTION) ascendingly
 function ascending(collection) {
   if (localStorage.getItem("language") === "ar") {
     return [...collection].sort((a, b) => {
@@ -85,52 +80,36 @@ function ascending(collection) {
       const nameB = b.querySelector(".arabic-name").textContent;
       return nameA.localeCompare(nameB, "ar");
     });
-  } else {
-    return [...collection].sort((a, b) => {
-      const nameA = a.querySelector(".surah-name").textContent;
-      const nameB = b.querySelector(".surah-name").textContent;
-      return nameA.localeCompare(nameB, "en");
-    });
   }
 
+  return [...collection].sort((a, b) => {
+    const nameA = a.querySelector(".surah-name").textContent;
+    const nameB = b.querySelector(".surah-name").textContent;
+    return nameA.localeCompare(nameB, "en");
+  });
 }
 
 alphabeticBtn.addEventListener("click", () => {
   removeOldJuz();
   putActiveClass(alphabeticBtn);
 
-  // If the active section is opened
   if (likedSection.classList.contains("active-section")) {
-
-    let likedCollection = getLikedCollection();
-    ascending(likedCollection).forEach((e) => {
-      e.style.display = "block"; // Show the only liked surahs
-      container.appendChild(e); // Change the look instant
-    });
+    appendInOrder(ascending(getLikedCollection()));
+    return;
   }
-  // If the Main section opened 
-  else {
-    surahContainer.forEach((element) => {
-      element.parentElement.style.display = "none"; // Hide the current collection
-    });
 
-    ascending(surahContainer).forEach((e) => {
-      e.parentElement.style.display = "block"; // Show the sorted collection
-      container.appendChild(e.parentElement);
-    });
-  }
+  surahContainer.forEach((element) => setCardHidden(element, true));
+  appendInOrder(ascending(surahContainer));
 });
-
-// ------------- THE SERIAL FILTER ------------- //
 
 let serialBtn = document.getElementById("serial");
 serialBtn.classList.add("active-filter")
-// Sort the collection according to the normal state
+
 function serial(collection) {
   return [...collection].sort((a, b) => {
     const aSurah = getSurahNode(a);
     const bSurah = getSurahNode(b);
-    return surahContainer.indexOf(aSurah) - surahContainer.indexOf(bSurah);
+    return Number(aSurah?.id.replace("surah", "")) - Number(bSurah?.id.replace("surah", ""));
   });
 }
 
@@ -138,32 +117,15 @@ serialBtn.addEventListener("click", () => {
   removeOldJuz();
   putActiveClass(serialBtn);
 
-  // If the active section is opened
   if (likedSection.classList.contains("active-section")) {
-    let likedCollection = getLikedCollection();
+    appendInOrder(serial(getLikedCollection()));
+    return;
+  }
 
-    serial(likedCollection).forEach((e) => {
-      e.style.display = "block";
-      container.appendChild(e); // Change the look instant
-    });
-  }
-  // If the Main section opened 
-  else {
-    let divcontainer = document.querySelectorAll("#cards > div");
-    divcontainer.forEach((oldSurah) => {
-      oldSurah.style.display = "none";
-    });
-    serial(surahContainer).forEach((newSurah) => {
-      let parent = newSurah.parentElement;
-      parent.style.display = "block";
-      container.appendChild(parent);
-    });
-  }
+  surahContainer.forEach((element) => setCardHidden(element, true));
+  appendInOrder(serial(surahContainer));
 });
 
-// ------------- THE AYAH FILTER ------------- //
-
-// Sorting the collection according to number of ayah
 function ayah(collection) {
   return [...collection].sort((a, b) => {
     const aSurah = getSurahNode(a);
@@ -178,40 +140,20 @@ let ayahBtn = document.querySelector("#filter > #ayah");
 ayahBtn.addEventListener("click", () => {
   removeOldJuz();
   putActiveClass(ayahBtn);
-  // If the active section is opened
-  if (likedSection.classList.contains("active-section")) {
-    let likedCollection = getLikedCollection();
 
-    // show only liked surah
-    ayah(likedCollection).forEach((e) => {
-      e.style.display = "block";
-      container.appendChild(e);
-    });
+  if (likedSection.classList.contains("active-section")) {
+    appendInOrder(ayah(getLikedCollection()));
+    return;
   }
-  // If the Main section opened 
-  else {
-    // Hide the main collection
-    surahContainer.forEach((element) => {
-      element.parentElement.style.display = "none";
-    });
-    // Show the sorted collection (AYAH SORTING)
-    ayah(surahContainer).forEach((e) => {
-      e.parentElement.style.display = "block";
-      container.appendChild(e.parentElement);
-    });
-  }
+
+  surahContainer.forEach((element) => setCardHidden(element, true));
+  appendInOrder(ayah(surahContainer));
 });
 
-// ------------- THE JUZ FILTER ------------- //
-
-// Sorting collection according to juz number
-// 1. تعديل دالة الترتيب (Sorting) بناءً على أول جزء تبدأ منه السورة
 function juz(collection) {
   return [...collection].sort((a, b) => {
     const aSurah = getSurahNode(a);
     const bSurah = getSurahNode(b);
-
-    // استخراج الرقم الأول فقط من القائمة (مثلاً لو كانت "1,2" نأخذ 1)
     const getFirstJuz = (node) => {
       const juzStr = node?.dataset?.juz || "0";
       return Number(juzStr.split(",")[0]);
@@ -221,7 +163,6 @@ function juz(collection) {
   });
 }
 
-// 2. تعديل مستمع الحدث (Event Listener) لتكرار كرت السورة إذا كانت تنتمي لأكثر من جزء
 let juzBtn = document.querySelector("#filter #juz");
 juzBtn.addEventListener("click", () => {
   removeOldJuz();
@@ -229,28 +170,22 @@ juzBtn.addEventListener("click", () => {
 
   const visibleCards = likedSection?.classList.contains("active-section")
     ? getLikedCollection()
-    : surahContainer.map((surah) => surah.parentElement);
+    : surahContainer;
 
-  // إخفاء جميع الكروت الأصلية أولاً
-  surahContainer.forEach((surah) => {
-    surah.parentElement.style.display = "none";
-  });
+  surahContainer.forEach((surah) => setCardHidden(surah, true));
 
   const groupedByJuz = new Map();
+  const fragment = document.createDocumentFragment();
 
-  // ترتيب الكروت وتوزيعها على الأجزاء
   juz(visibleCards).forEach((card) => {
     const surahNode = getSurahNode(card);
     if (!surahNode) return;
 
-    // تحويل النص "1,2,3" إلى مصفوفة [1, 2, 3]
     const juzList = surahNode.dataset.juz ? surahNode.dataset.juz.split(",") : ["0"];
 
-    // المرور على كل جزء تنتمي إليه هذه السورة
     juzList.forEach((surahJuz) => {
       const cleanJuz = surahJuz.trim();
 
-      // إنشاء حاوية (Container) للجزء إذا لم تكن موجودة مسبقاً
       if (!groupedByJuz.has(cleanJuz)) {
         const juzContainer = document.createElement("div");
         juzContainer.classList.add("juz-container");
@@ -258,37 +193,28 @@ juzBtn.addEventListener("click", () => {
         juzName.classList.add("juz-name");
         const juzLabel = localStorage.getItem("language") === "ar" ? "الجزء" : "Juz";
         juzName.textContent = `${juzLabel} ${cleanJuz}`;
-        juzContainer.appendChild(juzName)
-        container.appendChild(juzContainer);
+        juzContainer.appendChild(juzName);
+        fragment.appendChild(juzContainer);
         groupedByJuz.set(cleanJuz, juzContainer);
       }
 
-      // إذا كانت السورة ممتدة لأكثر من جزء، نقوم بنسخ الكرت (Clone) 
-      // حتى يظهر في كل الأجزاء الخاصة به دون أن يختفي من الجزء الآخر
       const cardToAppend = juzList.length > 1 ? card.cloneNode(true) : card;
       if (juzList.length > 1) {
         cardToAppend.classList.add("juz-clone");
+        cardToAppend.dataset.surahId = surahNode.id;
+        cardToAppend.removeAttribute("id");
       }
-      cardToAppend.style.display = "block";
-
+      setCardHidden(cardToAppend, false);
       groupedByJuz.get(cleanJuz).appendChild(cardToAppend);
     });
   });
+
+  container.appendChild(fragment);
 });
 
-
-/* 
-  THIS IS A CODE I USED AI TO HELPME CAUSE I WAS FACING A BIG PROBLEM
-  AND IT SOLVED , THE PROBLEM WAS THE THAT THE FILTER SECTION DONT SAVE IT STATE ESPECIALY ON THE JUZ FILTER
-  AND TO FIX THIS PROBLEM WE FIND THE SELECTED BTN BY ITS ACTIVE CLASS AND CLICK ON IT AUTOMATICLY
-  AND AFTER SOLVING THIS WHEN WE MOVE FROM ANY FILTER ESPECIALY THE JUZ PHILTER IT DONT DELETE THE OLD CONTAINER
- */
-
 function reApplyActiveFilter() {
-  // Geting the active filter
   const activeFilter = document.querySelector("#filter > div.active-filter");
   if (activeFilter) {
-    // Click on it automatically, and re-active it
     activeFilter.click();
   }
 }
@@ -300,28 +226,14 @@ document.addEventListener("languageChanged", () => {
   }
 });
 
-// Main section check
 const mainSectionBtn = document.querySelector("ul#sections #main-section");
-// If the main section is active and its clicked
 if (mainSectionBtn) {
   mainSectionBtn.addEventListener("click", () => {
-    // Run the function instantly in (0.010 second)
     setTimeout(reApplyActiveFilter, 10);
   });
 }
-// If the liked section is active and its clicked
 if (likedSection) {
   likedSection.addEventListener("click", () => {
-    // Run the function instantly in (0.010 second)
     setTimeout(reApplyActiveFilter, 10);
-
-    // Refresh the liked section instantly, show when it clicked
-    let likedCollection = getLikedCollection()
-    if (likedCollection) {
-      likedCollection.forEach((liked) => {
-        liked.style.display = "block"
-        container.appendChild(liked)
-      })
-    }
   });
 }
