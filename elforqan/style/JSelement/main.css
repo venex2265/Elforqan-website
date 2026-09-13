@@ -1,23 +1,10 @@
-:root{
-    --main-color:#02AC6C;
-    --secondery-color:#f8f8f8;
-    --dominant-bg:#fff;
-    --main-bg-color:#045636;
-    --secodery-text-color:#858585;
-    --text-color:#000000;
+:root,
+html.theme-light {
     --juz-container-bg :#0cc57e;
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --main-color:#02AC6C;
-        --secondery-color:#0D1716;
-        --dominant-bg:#091312;
-        --main-bg-color:#041711;
-        --secodery-text-color:#6A7279;
-        --text-color:#fff;
-        --juz-container-bg :#222222;
-        --logo-url : url("../../images/dark-logo.webp")
-}}
+html.theme-dark {
+    --juz-container-bg :#222222;
+}
 
 .darkandblurBG {
     filter: brightness(50%);
